@@ -1,0 +1,44 @@
+name: Deploy Nofiniaina Portfolio's
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repo HEAD branch
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      # Setup node
+      - name: Setup nodejs 22 version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Install pnpm 
+      - name: Install pnpm package manager
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # Install dependancies
+      - name: Install all dependancies
+        run: pnpm install
+
+      # Build project
+      - name: Build project
+        run: pnpm run build
+
+      # Deploy project
+      - name: Deploy project
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+    
