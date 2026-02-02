@@ -70,7 +70,7 @@ function NavItem({index, content, href}: NavProps) {
       
       <motion.a
         href={href}
-        className="text-foreground hover:text-primary transition-colors relative font-medium"
+        className="text-foreground hover:text-primary transition-colors relative font-medium z-10"
         onHoverStart={() => {
           setIsCurrent(true);
         }}
@@ -93,10 +93,10 @@ function NavItem({index, content, href}: NavProps) {
           transition={{ duration: 0.3, ease: "easeInOut" }}
         />
         
-        {/* Glowing effect on hover */}
+        {/* Glowing effect on hover - now behind text */}
         {isCurrent && (
           <motion.span
-            className="absolute inset-0 bg-primary opacity-5 rounded"
+            className="absolute inset-0 -inset-x-2 -inset-y-1 bg-primary/10 rounded -z-10"
             layoutId="navHighlight"
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           />
